@@ -1,40 +1,55 @@
-import React, {useState} from 'react'
+import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const Form = () => {
-    const [text, setText] = useState('')
-    const [submittedText, setSubmittedText] = useState([])
+  const storedItems = JSON.parse(localStorage.getItem('submittedText'))
+  const [submittedText, setSubmittedText] = useState(storedItems);
+  const [text, setText] = useState("");
 
-    const textChangeHandler = (i) =>{
-        setText(i.target.value)
-        console.log(i.target.value)
-      }
-      
-        const handleSubmit = (event) => {
-          event.preventDefault()
-          setSubmittedText(text)
-          setText('')
-        }
-      
-        return(
+  useEffect(() =>{
+    localStorage.setItem('submittedText',JSON.stringify(submittedText))
+    console.log(localStorage)
 
-            <form onSubmit={handleSubmit} >
-            <div className='form-group'>
-              <label className="d-block mb-2">
-                what you did today:
-                <input
-                  className="form-control d-block w-100"
-                  type="text"
-                  value={text}
-                  onChange={textChangeHandler}
-                />
-              </label>
-            </div>
-            <input type="submit" />
-            {submittedText && (<p>you just entered: {submittedText}</p>)}
-          </form>
-)
+  },[submittedText])
 
 
-}
+  const textChangeHandler = (i) => {
+    setText(i.target.value);
+  };
+  const handleAdd = (e) => {
+    e.preventDefault();
+    const newItem = { text: text, id: uuidv4() };
+    setSubmittedText((prevSubmittedText) => [...prevSubmittedText, newItem]);
+    setText("");
+  };
 
-export default Form
+  
+
+  return (
+    <>
+      <form onSubmit={handleAdd}>
+        <div className="form-group">
+          <label className="d-block mb-2">
+            what you did today:
+            <input
+              className="form-control d-block w-100"
+              type="text"
+              value={text}
+              onChange={textChangeHandler}
+            />
+          </label>
+        </div>
+        <input type="submit" />
+        <ul>
+          {submittedText.map((item) => (
+            <li className="list-unstyled" key={item.id}>
+              {item.text}
+            </li>
+          ))}
+        </ul>
+      </form>
+    </>
+  );
+};
+
+export default Form;
