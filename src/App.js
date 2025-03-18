@@ -1,13 +1,7 @@
-import { useState } from 'react';
+import Form from './components/Form'
 import './App.css';
 
 function App() {
-  const [text, setText] = useState('')
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    alert(`you entered ${text}`)
-  }
   return (
     <>
       <div className='container'>
@@ -16,21 +10,7 @@ function App() {
 
         {/* maybe add text to speech?*/}
         <div className='d-flex flex-column align-items-center'>
-          <form onSubmit={handleSubmit} >
-            <div className='form-group'>
-              <label className="d-block mb-2">
-                what you did today:
-                <input
-                  className="form-control d-block w-100"
-                  type="text"
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                />
-              </label>
-            </div>
-            <input type="submit" />
-          </form>
-
+          <Form />
 
           <p>Get response from AI:</p>
         </div>
