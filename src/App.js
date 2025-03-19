@@ -1,5 +1,6 @@
 import Form from './components/Form'
 import Counter from './components/Counter'
+import OpenAPI from './components/chatapi';
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Form />
 
           <p>Get response from AI:</p>
+          <OpenAPI />
         </div>
       </div>
 
