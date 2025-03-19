@@ -1,7 +1,7 @@
 import {OpenAI} from 'openai'
 import React, {useEffect,useState} from 'react'
 
-const OpenAPI = () => {
+const OpenAPI = ({submittedText}) => {
     const [response, setResponse] = useState('');
     useEffect(() => {
         const token = process.env.REACT_APP_GITHUB_TOKEN
@@ -18,7 +18,7 @@ const OpenAPI = () => {
             messages: 
             [
                 { role: "system", content: ""},
-                {role:"user", content:"What is the capital of France"}
+                {role:"user", content:submittedText}
             ],
             model: "gpt-4o",
             temperature: 1,
@@ -38,7 +38,7 @@ setResponse("failed to fetch data")
     } 
     };
     fetchData()
-},[])
+},[submittedText])
 
 return (
     <>

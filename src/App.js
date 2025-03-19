@@ -1,9 +1,13 @@
 import Form from './components/Form'
 import Counter from './components/Counter'
 import OpenAPI from './components/chatapi';
+import {useState} from 'react'
 import './App.css';
 
 function App() {
+  const storedItems = JSON.parse(localStorage.getItem('submittedText')) || []
+    const [submittedText, setSubmittedText] = useState(storedItems);
+  
   return (
     <>
       <div className='container'>
@@ -15,10 +19,10 @@ function App() {
 
         {/* maybe add text to speech?*/}
         <div className='d-flex flex-column align-items-center'>
-          <Form />
+          <Form setSubmittedText={setSubmittedText} submittedText={submittedText}/>
 
           <p>Get response from AI:</p>
-          <OpenAPI />
+          <OpenAPI submittedText={submittedText} />
         </div>
       </div>
 

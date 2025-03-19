@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-const Form = () => {
-  const storedItems = JSON.parse(localStorage.getItem('submittedText')) || []
-  const [submittedText, setSubmittedText] = useState(storedItems);
+const Form = ({setSubmittedText,submittedText}) => {
   const [text, setText] = useState("");
 
   useEffect(() =>{
