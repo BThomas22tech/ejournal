@@ -7,7 +7,8 @@ import './App.css';
 function App() {
   const storedItems = JSON.parse(localStorage.getItem('submittedText')) || []
     const [submittedText, setSubmittedText] = useState(storedItems);
-  
+
+  console.log(submittedText)
   return (
     <>
       <div className='container'>
