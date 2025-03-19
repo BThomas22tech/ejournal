@@ -7,9 +7,11 @@ const OpenAPI = ({ submittedText }) => {
     const lastSentItemRef = useRef(null)
 
     useEffect(() => {
-        if (submittedText.length === 0) return
         const latestItem = submittedText[submittedText.length - 1]
-        if (!latestItem || !latestItem.text) return;
+        if (submittedText.length === 0) return
+        
+        if (!latestItem || !latestItem.text || latestItem.text.trim() === '') return;
+        
         if (lastSentItemRef.current === latestItem.id) {
             console.log("skipping duplicate")
             return
@@ -47,7 +49,7 @@ Current Virtue Score: 50 (always mention the updated score after each judgment)`
                     messages:
                         [
                             { role: "system", content: systemMessage},
-                            { role: "user", content: latestItem.text }
+                            { role: "user", content: latestItem.text.trim() }
                         ],
                     model: "gpt-4o",
                     temperature: 1,
