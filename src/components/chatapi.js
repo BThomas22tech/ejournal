@@ -11,7 +11,7 @@ const OpenAPI = ({ submittedText }) => {
         if (submittedText.length === 0) return
         
         if (!latestItem || !latestItem.text || latestItem.text.trim() === '') return;
-        
+
         if (lastSentItemRef.current === latestItem.id) {
             console.log("skipping duplicate")
             return
@@ -51,7 +51,7 @@ Current Virtue Score: 50 (always mention the updated score after each judgment)`
                             { role: "system", content: systemMessage},
                             { role: "user", content: latestItem.text.trim() }
                         ],
-                    model: "gpt-4o",
+                    model: "gpt-4o-mini",
                     temperature: 1,
                     max_tokens: 4096,
                     top_p: 1
