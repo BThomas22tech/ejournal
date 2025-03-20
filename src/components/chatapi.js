@@ -1,7 +1,7 @@
 import { OpenAI } from 'openai'
 import React, { useEffect, useState, useRef } from 'react'
 
-const OpenAPI = ({ submittedText }) => {
+const OpenAPI = ({ submittedText, onScore}) => {
     const [response, setResponse] = useState('');
     const requestInProgress = useRef(false)
     const lastSentItemRef = useRef(null)
@@ -33,8 +33,8 @@ When responding to Ezra:
 6. Maintain a formal but slightly exasperated tone, as if you've seen thousands of years of mortal children's folly
 7. End with age-appropriate wisdom or a warning about his current path
 8. Remember he is a child approaching his 7th birthday, so adjust your expectations and language accordingly
-
-Current Virtue Score: 50 (always mention the updated score after each judgment)`;
+Keep responses under 400 characters.
+Give updated Virtue Score first `;
 
         const fetchData = async () => {
             requestInProgress.current = true;
@@ -51,13 +51,18 @@ Current Virtue Score: 50 (always mention the updated score after each judgment)`
                             { role: "system", content: systemMessage},
                             { role: "user", content: latestItem.text.trim() }
                         ],
-                    model: "gpt-4o-mini",
+                    model: "gpt-4o",
                     temperature: 1,
                     max_tokens: 4096,
                     top_p: 1
                 })
                 console.log(response.choices[0].message.content)
-
+                let content = response.choices[0].message.content
+// *******virtue number here*********
+                let matchNumber = content.match(/[-+]\d+/)
+                let virtueNumber = matchNumber[0]
+                onScore(virtueNumber)
+                console.log(virtueNumber,"virtue number")
                 setResponse(response.choices[0].message.content);
                 lastSentItemRef.current = latestItem.id
             }
@@ -73,7 +78,7 @@ Current Virtue Score: 50 (always mention the updated score after each judgment)`
             }
         };
         fetchData()
-    }, [submittedText])
+    }, [submittedText,onScore])
 
     return (
         <>

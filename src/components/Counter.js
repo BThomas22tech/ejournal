@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 
-const Counter = ({ initialValue = 0 }) => {
-    const [score, setScore] = useState(initialValue)
+const Counter = ({score}) => {
 
     const increment = () => {
-        setScore(prevScore => prevScore + 1)
+        alert("Lie Detected!")
+        // setScore(prevScore => prevScore + 1)
     }
     const decrement = () => {
-        setScore(prevScore => prevScore - 1)
+        alert("Only I Odin can deduct virtue points!")
+        // setScore(prevScore => prevScore - 1)
     }
     return (
         <div>

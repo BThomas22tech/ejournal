@@ -7,14 +7,18 @@ import './App.css';
 function App() {
   const storedItems = JSON.parse(localStorage.getItem('submittedText')) || []
     const [submittedText, setSubmittedText] = useState(storedItems);
+    const [score, setScore] = useState(0)
 
-  console.log(submittedText)
+    const handleScoreUpdate = (newScore) => {
+      setScore(newScore)
+
+    }
   return (
     <>
       <div className='container'>
         <h1 className='d-flex justify-content-center pt-4'>Virtue Journal</h1>
         <div className='d-flex justify-content-end pr-2'> 
-          <Counter initialValue={0}/>
+          <Counter score={score}/>
         </div>
 
 
@@ -23,7 +27,7 @@ function App() {
           <Form setSubmittedText={setSubmittedText} submittedText={submittedText}/>
 
           <p>Get response from AI:</p>
-          <OpenAPI submittedText={submittedText} />
+          <OpenAPI submittedText={submittedText} onScore= {handleScoreUpdate} />
         </div>
       </div>
 
