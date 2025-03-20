@@ -23,10 +23,10 @@ function App() {
 
 
         {/* maybe add text to speech?*/}
-        <div className='d-flex flex-column align-items-center'>
+        <div className='d-flex flex-column align-items-center h4'>
           <Form setSubmittedText={setSubmittedText} submittedText={submittedText}/>
 
-          <p>Get response from AI:</p>
+          <p>Get response from The All-Father:</p>
           <OpenAPI submittedText={submittedText} onScore= {handleScoreUpdate} />
         </div>
       </div>
